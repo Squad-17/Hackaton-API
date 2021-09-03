@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Hackaton_API.Context;
+using Hackaton_API.Models;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Hackaton_API.Controllers
 {
@@ -6,10 +10,14 @@ namespace Hackaton_API.Controllers
     [ApiController]
     public class FuncionarioController : ControllerBase
     {
+        private readonly ApiContext _context;
+
+        public FuncionarioController(ApiContext context) => _context = context;
+
         [HttpGet]
-        public ActionResult GetFuncionarios()
+        public List<Funcionario> GetFuncionarios()
         {
-            return Ok(new string[] { "Matheus", "Renan", "Anderson" });
+            return _context.Funcionarios.ToList();
         }
     }
 }
