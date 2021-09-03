@@ -1,5 +1,6 @@
 ﻿using Hackaton_API.Context;
 using Hackaton_API.Models;
+using Hackaton_API.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -34,27 +35,14 @@ namespace Hackaton_API.Controllers
                 _context.Funcionarios.Add(funcionario);
                 _context.SaveChanges();
 
-                //retornar token
-                return Created("", "");
+                var token = TokenService.GenerateToken(funcionario);
+
+                return Created("", new { token });
             }
             catch (Exception e)
             {
                 return BadRequest(new { erro = e.Message });
             }
-        }
-
-        [HttpPost("login")]
-        public ActionResult Login([FromBody] Funcionario funcionario)
-        {
-            ValidarEmail(funcionario.Email);
-            ValidarSenha(funcionario.Senha);
-
-            var funcionarioLogado = _context.Funcionarios.Where(x => x.Email.ToLower() == funcionario.Senha && x.Senha == funcionario.Senha).FirstOrDefault();
-
-            if (funcionarioLogado is null)
-                return BadRequest(new { erro = "Email ou senha incorretos" });
-
-            return Ok("");
         }
 
         private void ValidarNome(string nome)
