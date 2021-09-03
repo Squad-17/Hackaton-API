@@ -7,6 +7,8 @@ namespace Hackaton_API.Context
     {
         public DbSet<Funcionario> Funcionarios { get; set; }
 
+        public DbSet<Local> Locais { get; set; }
+
         public ApiContext(DbContextOptions<ApiContext> options) : base(options) { }
     }
 }
