@@ -13,6 +13,7 @@
       "commandName": "IISExpress",
       "launchUrl": "weatherforecast",
       "environmentVariables": {
+        "SECRET_KEY": "3dd98ddfabc102d9dfd3404e46ac74e2",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
