@@ -45,6 +45,29 @@ namespace Hackaton_API.Controllers
             }
         }
 
+        [HttpPost("login")]
+        public ActionResult Login([FromBody] Funcionario funcionario)
+        {
+            try
+            {
+                ValidarEmail(funcionario.Email);
+                ValidarSenha(funcionario.Senha);
+
+                var funcionarioLogado = _context.Funcionarios.Where(x => x.Email.ToLower() == funcionario.Email.ToLower() && x.Senha == funcionario.Senha).FirstOrDefault();
+
+                if (funcionarioLogado is null)
+                    return BadRequest(new { erro = "Email ou senha incorretos" });
+
+                var token = TokenService.GenerateToken(funcionario);
+
+                return Ok(new { token });
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new { erro = e.Message });
+            }
+        }
+
         private void ValidarNome(string nome)
         {
             var regex = new Regex(@"^[a-zA-Z].{3,}$");
