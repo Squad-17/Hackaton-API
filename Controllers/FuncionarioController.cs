@@ -3,7 +3,6 @@ using Hackaton_API.Models;
 using Hackaton_API.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -15,13 +14,7 @@ namespace Hackaton_API.Controllers
     {
         private readonly ApiContext _context;
 
-        public FuncionarioController(ApiContext context) => _context = context;
-
-        [HttpGet]
-        public List<Funcionario> GetFuncionarios()
-        {
-            return _context.Funcionarios.ToList();
-        }
+        public FuncionarioController(ApiContext context) => _context = context;        
 
         [HttpPost("cadastrar")]
         public ActionResult Cadastrar([FromBody] Funcionario funcionario)
@@ -37,7 +30,7 @@ namespace Hackaton_API.Controllers
 
                 var token = TokenService.GenerateToken(funcionario);
 
-                return Created("", new { token });
+                return Created("", new { token, funcionario.Nome });
             }
             catch (Exception e)
             {
@@ -60,7 +53,7 @@ namespace Hackaton_API.Controllers
 
                 var token = TokenService.GenerateToken(funcionario);
 
-                return Ok(new { token });
+                return Ok(new { token, funcionario.Nome });
             }
             catch (Exception e)
             {
