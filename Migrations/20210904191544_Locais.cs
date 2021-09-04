@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Hackaton_API.Migrations
 {
-    public partial class local : Migration
+    public partial class Locais : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hackaton_API.Migrations
 {
     [DbContext(typeof(ApiContext))]
-    [Migration("20210903010638_Email-Funcionario")]
-    partial class EmailFuncionario
+    [Migration("20210904191502_Funcionario")]
+    partial class Funcionario
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
