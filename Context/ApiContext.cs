@@ -9,6 +9,8 @@ namespace Hackaton_API.Context
 
         public DbSet<Local> Locais { get; set; }
 
+        public DbSet<Agendamento> Agendamentos { get; set; }
+
         public ApiContext(DbContextOptions<ApiContext> options) : base(options) { }
     }
 }
