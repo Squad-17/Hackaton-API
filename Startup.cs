@@ -62,13 +62,13 @@ namespace Hackaton_API
                 var context = serviceScope.ServiceProvider.GetRequiredService<ApiContext>();
                 context.Database.Migrate();
 
-                //if (context.Locais.Count() < 2)
-                //{
-                //    context.Locais.Add(new Local { Id = 1, Cidade = "São Paulo", Endereco = "Rua Bela Cintra, 986 - 2º andar", Capacidade = 600 });
-                //    context.Locais.Add(new Local { Id = 2, Cidade = "Santos", Endereco = "Praça dos expedicionários, 19", Capacidade = 100 });
+                if (context.Locais.Count() == 0)
+                {
+                    context.Locais.Add(new Local { Id = 1, Cidade = "São Paulo", Endereco = "Rua Bela Cintra, 986 - 2º andar", Capacidade = 600 });
+                    context.Locais.Add(new Local { Id = 2, Cidade = "Santos", Endereco = "Praça dos expedicionários, 19", Capacidade = 100 });
 
-                //    context.SaveChanges();
-                //}
+                    context.SaveChanges();
+                }
             }
 
             if (env.IsDevelopment())
