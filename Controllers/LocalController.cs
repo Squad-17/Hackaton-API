@@ -1,5 +1,4 @@
 using Hackaton_API.Context;
-using Hackaton_API.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
@@ -12,7 +11,6 @@ namespace Hackaton_API.Controllers
 
         private readonly ApiContext _context;
         public LocalController(ApiContext context) => _context = context;
-        Local local = new Local();
 
         [HttpGet]
         public ActionResult GetLocal()
@@ -20,6 +18,5 @@ namespace Hackaton_API.Controllers
             return Ok(_context.Locais.ToList());
         }
 
-      
     }
 }
