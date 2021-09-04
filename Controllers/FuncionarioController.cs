@@ -14,7 +14,7 @@ namespace Hackaton_API.Controllers
     {
         private readonly ApiContext _context;
 
-        public FuncionarioController(ApiContext context) => _context = context;        
+        public FuncionarioController(ApiContext context) => _context = context;
 
         [HttpPost("cadastrar")]
         public ActionResult Cadastrar([FromBody] Funcionario funcionario)
@@ -24,6 +24,11 @@ namespace Hackaton_API.Controllers
                 ValidarNome(funcionario.Nome);
                 ValidarEmail(funcionario.Email);
                 ValidarSenha(funcionario.Senha);
+
+                var count = _context.Funcionarios.Where(x => x.Email.ToLower() == funcionario.Email.ToLower()).Count();
+
+                if (count > 0)
+                    throw new Exception("Email já cadastrado");
 
                 _context.Funcionarios.Add(funcionario);
                 _context.SaveChanges();
