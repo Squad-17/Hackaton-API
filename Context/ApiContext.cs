@@ -12,5 +12,12 @@ namespace Hackaton_API.Context
         public DbSet<Agendamento> Agendamentos { get; set; }
 
         public ApiContext(DbContextOptions<ApiContext> options) : base(options) { }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Agendamento>().HasKey(x => new { x.Data, x.FuncionarioId, x.LocalId });
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }
