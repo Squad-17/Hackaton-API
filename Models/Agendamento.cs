@@ -4,8 +4,10 @@ namespace Hackaton_API.Models
 {
     public class Agendamento
     {
-        public DateTime data;
-        public Funcionario idFuncionario;
-        public Local idLocal;
+        public int IdLocal { get; set; }
+        public Local Local { get; set; }
+        public DateTime Data { get; set; }
+        public int IdFuncionario { get; set; }
+        public Funcionario Funcionario { get; set; }
     }
 }
