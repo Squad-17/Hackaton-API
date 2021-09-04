@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Linq;
 using System.Text;
 
 namespace Hackaton_API
@@ -33,8 +34,8 @@ namespace Hackaton_API
 
                 options.UseMySql(conString);
             });
-
-            var key = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("SECRET_KEY"));
+            
+            var key = Encoding.ASCII.GetBytes(Configuration.GetValue<string>("SECRET_KEY"));
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -61,10 +62,13 @@ namespace Hackaton_API
                 var context = serviceScope.ServiceProvider.GetRequiredService<ApiContext>();
                 context.Database.Migrate();
 
-                context.Locais.Add(new Local { Id = 1, Cidade = "São Paulo", Endereco = "Rua Bela Cintra, 986 - 2º andar", Capacidade = 600 });
-                context.Locais.Add(new Local { Id = 2, Cidade = "Santos", Endereco = "Praça dos expedicionários, 19", Capacidade = 100 });
+                //if (context.Locais.Count() < 2)
+                //{
+                //    context.Locais.Add(new Local { Id = 1, Cidade = "São Paulo", Endereco = "Rua Bela Cintra, 986 - 2º andar", Capacidade = 600 });
+                //    context.Locais.Add(new Local { Id = 2, Cidade = "Santos", Endereco = "Praça dos expedicionários, 19", Capacidade = 100 });
 
-                context.SaveChanges();
+                //    context.SaveChanges();
+                //}
             }
 
             if (env.IsDevelopment())
