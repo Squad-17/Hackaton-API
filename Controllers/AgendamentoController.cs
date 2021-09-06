@@ -60,5 +60,37 @@ namespace Hackaton_API.Controllers
 
             return Ok(dias);
         }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult Agendar([FromBody] Agendamento agendamento)
+        {
+            try
+            {
+                if (agendamento.Data <= DateTime.Today)
+                    throw new Exception("Data de agendamento deve ser no mínimo amanhã");
+
+                if (agendamento.Data.DayOfWeek == DayOfWeek.Saturday || agendamento.Data.DayOfWeek == DayOfWeek.Sunday)
+                    throw new Exception("Não é permitido fazer agendamento aos finais de semana");
+
+                if (agendamento.FuncionarioId == 0 || agendamento.LocalId == 0)
+                    throw new Exception("Erro inesperado, tente novamente mais tarde");
+
+                var funcionarioId = int.Parse(User.FindFirst("Id").Value);
+                var jaAgendouHoje = _context.Agendamentos.Where(x => x.FuncionarioId == funcionarioId && x.Data == agendamento.Data).FirstOrDefault() != null;
+
+                if (jaAgendouHoje)
+                    throw new Exception("Não é permitido fazer mais de um agendamento por dia");
+
+                _context.Agendamentos.Add(agendamento);
+                _context.SaveChanges();
+
+                return Created("", agendamento);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new { erro = e.Message });
+            }
+        }
     }
 }
