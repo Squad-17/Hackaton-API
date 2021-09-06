@@ -2,6 +2,7 @@ using Hackaton_API.Context;
 using Hackaton_API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,17 @@ namespace Hackaton_API.Controllers
     {
         private readonly ApiContext _context;
         public AgendamentoController(ApiContext context) => _context = context;
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult AgendamentosFeitos()
+        {
+            int funcionarioId = int.Parse(User.FindFirst("Id").Value);
+
+            var agendamentos = _context.Agendamentos.Include(x => x.Local).Where(x => x.FuncionarioId == funcionarioId && x.Data >= DateTime.Today).ToList();
+
+            return Ok(agendamentos);
+        }
 
         [Authorize]
         [HttpGet("disponiveis/{localId}")]
