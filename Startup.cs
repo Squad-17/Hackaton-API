@@ -8,7 +8,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
-using System;
 using System.Linq;
 using System.Text;
 
@@ -34,7 +33,7 @@ namespace Hackaton_API
 
                 options.UseMySql(conString);
             });
-            
+
             var key = Encoding.ASCII.GetBytes(Configuration.GetValue<string>("SECRET_KEY"));
             services.AddAuthentication(x =>
             {
@@ -82,6 +81,8 @@ namespace Hackaton_API
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseEndpoints(endpoints =>
             {
