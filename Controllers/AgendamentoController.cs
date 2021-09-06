@@ -104,5 +104,21 @@ namespace Hackaton_API.Controllers
                 return BadRequest(new { erro = e.Message });
             }
         }
+
+        [Authorize]
+        [HttpDelete]
+        public ActionResult Cancelar([FromBody] Agendamento agendamento)
+        {
+            if (agendamento.FuncionarioId == 0 || agendamento.LocalId == 0)
+                return BadRequest(new { erro = "Erro inesperado, tente novamente mais tarde." });
+
+            if (agendamento.Data == DateTime.MinValue || agendamento.Data <= DateTime.Today)
+                return BadRequest(new { erro = "Data inválida, tente novamente" });
+
+            _context.Agendamentos.Remove(agendamento);
+            _context.SaveChanges();
+
+            return Ok();
+        }
     }
 }
