@@ -51,9 +51,9 @@ namespace Hackaton_API.Controllers
                 ValidarEmail(funcionario.Email);
                 ValidarSenha(funcionario.Senha);
 
-                var funcionarioLogado = _context.Funcionarios.Where(x => x.Email.ToLower() == funcionario.Email.ToLower() && x.Senha == funcionario.Senha).FirstOrDefault();
+                funcionario = _context.Funcionarios.Where(x => x.Email.ToLower() == funcionario.Email.ToLower() && x.Senha == funcionario.Senha).FirstOrDefault();
 
-                if (funcionarioLogado is null)
+                if (funcionario is null)
                     return BadRequest(new { erro = "Email ou senha incorretos" });
 
                 var token = TokenService.GenerateToken(funcionario);
