@@ -16,13 +16,16 @@ namespace Hackaton_API.Controllers
         private readonly ApiContext _context;
         public AgendamentoController(ApiContext context) => _context = context;
 
+        private int IdFuncionarioAutenticado
+        {
+            get => int.Parse(User.FindFirst("Id").Value);
+        }
+
         [HttpGet]
         [Authorize]
         public ActionResult AgendamentosFeitos()
         {
-            int funcionarioId = int.Parse(User.FindFirst("Id").Value);
-
-            var agendamentos = _context.Agendamentos.Include(x => x.Local).Where(x => x.FuncionarioId == funcionarioId && x.Data >= DateTime.Today).ToList();
+            var agendamentos = _context.Agendamentos.Include(x => x.Local).Where(x => x.FuncionarioId == IdFuncionarioAutenticado && x.Data >= DateTime.Today).ToList();
 
             return Ok(agendamentos);
         }
@@ -37,7 +40,7 @@ namespace Hackaton_API.Controllers
             if (local is null)
                 return BadRequest(new { erro = "Local inválido, tente novamente mais tarde" });
 
-            var agendamentosPermitidos = local.Capacidade * 0.4;
+            var agendamentosPermitidos = Convert.ToInt32(local.Capacidade * 0.4);
 
             var dias = new List<DiaAgendamento>();
 
@@ -49,25 +52,7 @@ namespace Hackaton_API.Controllers
 
             foreach (var dia in dias)
             {
-                if (dia.Data.DayOfWeek == DayOfWeek.Saturday || dia.Data.DayOfWeek == DayOfWeek.Sunday)
-                {
-                    dia.Disponivel = false;
-                    continue;
-                }
-
-                int funcionarioId = int.Parse(User.FindFirst("Id").Value);
-
-                bool jaAgendouHoje = _context.Agendamentos.Where(x => x.FuncionarioId == funcionarioId && x.Data == dia.Data).FirstOrDefault() != null;
-
-                if (jaAgendouHoje)
-                {
-                    dia.Disponivel = false;
-                    continue;
-                };
-
-                int agendamentosCount = _context.Agendamentos.Where(x => x.Data == dia.Data).Count();
-
-                if (agendamentosCount == agendamentosPermitidos) dia.Disponivel = false;
+                dia.Disponivel = DiaEstaDisponivel(dia.Data, agendamentosPermitidos);
             }
 
             return Ok(dias);
@@ -88,8 +73,7 @@ namespace Hackaton_API.Controllers
                 if (agendamento.FuncionarioId == 0 || agendamento.LocalId == 0)
                     throw new Exception("Erro inesperado, tente novamente mais tarde");
 
-                var funcionarioId = int.Parse(User.FindFirst("Id").Value);
-                var jaAgendouHoje = _context.Agendamentos.Where(x => x.FuncionarioId == funcionarioId && x.Data == agendamento.Data).FirstOrDefault() != null;
+                var jaAgendouHoje = _context.Agendamentos.Where(x => x.FuncionarioId == IdFuncionarioAutenticado && x.Data == agendamento.Data).FirstOrDefault() != null;
 
                 if (jaAgendouHoje)
                     throw new Exception("Não é permitido fazer mais de um agendamento por dia");
@@ -119,6 +103,23 @@ namespace Hackaton_API.Controllers
             _context.SaveChanges();
 
             return Ok();
+        }
+
+        private bool DiaEstaDisponivel(DateTime data, int capacidadeMaxima)
+        {
+            if (data.DayOfWeek == DayOfWeek.Saturday || data.DayOfWeek == DayOfWeek.Sunday)
+                return false;
+
+            bool jaAgendouHoje = _context.Agendamentos.Where(x => x.FuncionarioId == IdFuncionarioAutenticado && x.Data == data).FirstOrDefault() != null;
+
+            if (jaAgendouHoje)
+                return false;
+
+            int agendamentosCount = _context.Agendamentos.Where(x => x.Data == data).Count();
+
+            if (agendamentosCount == capacidadeMaxima) return false;
+
+            return true;
         }
     }
 }
