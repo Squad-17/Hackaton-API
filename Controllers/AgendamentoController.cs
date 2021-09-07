@@ -25,7 +25,9 @@ namespace Hackaton_API.Controllers
         [Authorize]
         public ActionResult AgendamentosFeitos()
         {
-            var agendamentos = _context.Agendamentos.Include(x => x.Local).Where(x => x.FuncionarioId == IdFuncionarioAutenticado && x.Data >= DateTime.Today).ToList();
+            var agendamentos = _context.Agendamentos
+                .Include(x => x.Local)
+                .Where(x => x.FuncionarioId == IdFuncionarioAutenticado && x.Data >= DateTime.Today).ToList();
 
             return Ok(agendamentos);
         }
@@ -40,7 +42,7 @@ namespace Hackaton_API.Controllers
             if (local is null)
                 return BadRequest(new { erro = "Local inválido, tente novamente mais tarde" });
 
-            var agendamentosPermitidos = Convert.ToInt32(local.Capacidade * 0.4);
+            var capacidadeMaxima = Convert.ToInt32(local.Capacidade * 0.4);
 
             var dias = new List<DiaAgendamento>();
 
@@ -52,7 +54,7 @@ namespace Hackaton_API.Controllers
 
             foreach (var dia in dias)
             {
-                dia.Disponivel = DiaEstaDisponivel(dia.Data, agendamentosPermitidos);
+                dia.Disponivel = DiaEstaDisponivel(dia.Data, capacidadeMaxima);
             }
 
             return Ok(dias);
@@ -67,7 +69,7 @@ namespace Hackaton_API.Controllers
                 if (agendamento.Data <= DateTime.Today)
                     throw new Exception("Data de agendamento deve ser no mínimo amanhã");
 
-                if (agendamento.Data.DayOfWeek == DayOfWeek.Saturday || agendamento.Data.DayOfWeek == DayOfWeek.Sunday)
+                if (EFinalDeSemana(agendamento.Data))
                     throw new Exception("Não é permitido fazer agendamento aos finais de semana");
 
                 if (agendamento.FuncionarioId == 0 || agendamento.LocalId == 0)
@@ -107,7 +109,10 @@ namespace Hackaton_API.Controllers
 
         private bool DiaEstaDisponivel(DateTime data, int capacidadeMaxima)
         {
-            if (data.DayOfWeek == DayOfWeek.Saturday || data.DayOfWeek == DayOfWeek.Sunday)
+            if (EFinalDeSemana(data))
+                return false;
+
+            if (EFeriado(data))
                 return false;
 
             bool jaAgendouHoje = _context.Agendamentos.Where(x => x.FuncionarioId == IdFuncionarioAutenticado && x.Data == data).FirstOrDefault() != null;
@@ -120,6 +125,29 @@ namespace Hackaton_API.Controllers
             if (agendamentosCount == capacidadeMaxima) return false;
 
             return true;
+        }
+
+        private bool EFinalDeSemana(DateTime data) => data.DayOfWeek == DayOfWeek.Saturday || data.DayOfWeek == DayOfWeek.Sunday;
+
+        private bool EFeriado(DateTime data)
+        {
+            DateTime[] feriados = new DateTime[]
+            {
+                new DateTime(2021, 1, 1),
+                new DateTime(2021, 2, 15),
+                new DateTime(2021, 2, 16),
+                new DateTime(2021, 2, 4),
+                new DateTime(2021, 4, 21),
+                new DateTime(2021, 5, 1),
+                new DateTime(2021, 6, 3),
+                new DateTime(2021, 9, 7),
+                new DateTime(2021, 10, 12),
+                new DateTime(2021, 11, 2),
+                new DateTime(2021, 11, 15),
+                new DateTime(2021, 12, 25)
+            };
+
+            return feriados.Any(x => x.Day == data.Day && x.Month == data.Month);
         }
     }
 }
