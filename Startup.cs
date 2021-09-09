@@ -35,7 +35,7 @@ namespace Hackaton_API
                 options.UseMySql(conString);
             });
 
-            var key = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("SECRET_KEY"));
+            var key = Encoding.ASCII.GetBytes("3dd98ddfabc102d9dfd3404e46ac74e2");
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -63,8 +63,8 @@ namespace Hackaton_API
 
                 if (context.Locais.Count() == 0)
                 {
-                    context.Locais.Add(new Local { Id = 1, Cidade = "São Paulo", Endereco = "Rua Bela Cintra, 986 - 2º andar", Capacidade = 600 });
-                    context.Locais.Add(new Local { Id = 2, Cidade = "Santos", Endereco = "Praça dos expedicionários, 19", Capacidade = 100 });
+                    context.Locais.Add(new Local { Id = 1, Cidade = "SÃ£o Paulo", Endereco = "Rua Bela Cintra, 986 - 2Âº andar", Capacidade = 600 });
+                    context.Locais.Add(new Local { Id = 2, Cidade = "Santos", Endereco = "PraÃ§a dos expedicionÃ¡rios, 19", Capacidade = 100 });
 
                     context.SaveChanges();
                 }
