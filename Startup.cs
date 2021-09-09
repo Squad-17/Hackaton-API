@@ -59,8 +59,7 @@ namespace Hackaton_API
         {
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
-                var context = serviceScope.ServiceProvider.GetRequiredService<ApiContext>();
-                context.Database.Migrate();
+                var context = serviceScope.ServiceProvider.GetRequiredService<ApiContext>();                
 
                 if (context.Locais.Count() == 0)
                 {
