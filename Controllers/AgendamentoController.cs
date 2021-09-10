@@ -72,10 +72,11 @@ namespace Hackaton_API.Controllers
                 if (EFinalDeSemana(agendamento.Data))
                     throw new Exception("Não é permitido fazer agendamento aos finais de semana");
 
-                if (agendamento.FuncionarioId == 0 || agendamento.LocalId == 0)
+                if (agendamento.LocalId == 0)
                     throw new Exception("Erro inesperado, tente novamente mais tarde");
 
-                var jaAgendouHoje = _context.Agendamentos.Where(x => x.FuncionarioId == IdFuncionarioAutenticado && x.Data == agendamento.Data).FirstOrDefault() != null;
+                agendamento.FuncionarioId = IdFuncionarioAutenticado;
+                var jaAgendouHoje = _context.Agendamentos.Where(x => x.FuncionarioId == agendamento.FuncionarioId && x.Data == agendamento.Data).FirstOrDefault() != null;
 
                 if (jaAgendouHoje)
                     throw new Exception("Não é permitido fazer mais de um agendamento por dia");
