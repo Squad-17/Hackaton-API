@@ -17,6 +17,8 @@ namespace Hackaton_API.Models
             }
         }
 
+        public int DiaDoMes => Data.Day;
+
         public DiaAgendamento(DateTime data)
         {
             Data = data;
