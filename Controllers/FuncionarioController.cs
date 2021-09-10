@@ -38,7 +38,7 @@ namespace Hackaton_API.Controllers
 
                 var token = TokenService.GenerateToken(funcionario);
 
-                return Created("", new { token, funcionario.Nome });
+                return Created("", new { token, funcionario.Nome, funcionario.Cargo });
             }
             catch (Exception e)
             {
@@ -61,7 +61,7 @@ namespace Hackaton_API.Controllers
 
                 var token = TokenService.GenerateToken(funcionario);
 
-                return Ok(new { token, funcionario.Nome });
+                return Ok(new { token, funcionario.Nome, funcionario.Cargo });
             }
             catch (Exception e)
             {
