@@ -19,8 +19,8 @@ namespace Hackaton_API.Services
                 {
                     new Claim("Email", funcionario.Email),
                     new Claim("Id", funcionario.Id.ToString())
-                }),
-                Expires = DateTime.UtcNow.AddHours(4),
+                }),                
+                Expires = DateTime.UtcNow.AddMonths(3),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
