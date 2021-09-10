@@ -1,6 +1,7 @@
 ﻿using Hackaton_API.Context;
 using Hackaton_API.Models;
 using Hackaton_API.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
@@ -15,6 +16,8 @@ namespace Hackaton_API.Controllers
         private readonly ApiContext _context;
 
         public FuncionarioController(ApiContext context) => _context = context;
+
+        private int IdFuncionarioAutenticado => int.Parse(User.FindFirst("Id").Value);
 
         [HttpPost("cadastrar")]
         public ActionResult Cadastrar([FromBody] Funcionario funcionario)
@@ -64,6 +67,18 @@ namespace Hackaton_API.Controllers
             {
                 return BadRequest(new { erro = e.Message });
             }
+        }
+
+        [HttpGet("info")]
+        [Authorize]
+        public ActionResult FuncionarioInfo()
+        {
+            var funcionario = _context.Funcionarios.Where(x => x.Id == IdFuncionarioAutenticado).FirstOrDefault();
+
+            funcionario.Email = "";
+            funcionario.Senha = "";
+
+            return Ok(funcionario);
         }
 
         private void ValidarNome(string nome)
