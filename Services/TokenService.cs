@@ -12,7 +12,7 @@ namespace Hackaton_API.Services
         public static string GenerateToken(Funcionario funcionario)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("SECRET_KEY"));
+            var key = Encoding.ASCII.GetBytes("3dd98ddfabc102d9dfd3404e46ac74e2");
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
