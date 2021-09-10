@@ -16,10 +16,7 @@ namespace Hackaton_API.Controllers
         private readonly ApiContext _context;
         public AgendamentoController(ApiContext context) => _context = context;
 
-        private int IdFuncionarioAutenticado
-        {
-            get => int.Parse(User.FindFirst("Id").Value);
-        }
+        private int IdFuncionarioAutenticado => int.Parse(User.FindFirst("Id").Value);
 
         [HttpGet]
         [Authorize]
@@ -27,6 +24,7 @@ namespace Hackaton_API.Controllers
         {
             var agendamentos = _context.Agendamentos
                 .Include(x => x.Local)
+                .OrderBy(x => x.Data)
                 .Where(x => x.FuncionarioId == IdFuncionarioAutenticado && x.Data >= DateTime.Today).ToList();
 
             return Ok(agendamentos);
