@@ -103,11 +103,13 @@ namespace Hackaton_API.Controllers
         [HttpDelete]
         public ActionResult Cancelar([FromBody] Agendamento agendamento)
         {
-            if (agendamento.FuncionarioId == 0 || agendamento.LocalId == 0)
+            if (agendamento.LocalId == 0)
                 return BadRequest(new { erro = "Erro inesperado, tente novamente mais tarde." });
 
             if (agendamento.Data == DateTime.MinValue || agendamento.Data <= DateTime.Today)
                 return BadRequest(new { erro = "Data inválida, tente novamente" });
+
+            agendamento.FuncionarioId = IdFuncionarioAutenticado;
 
             _context.Agendamentos.Remove(agendamento);
             _context.SaveChanges();
