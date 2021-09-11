@@ -1,4 +1,5 @@
-﻿using hackathon_api.Enums;
+﻿using Hackaton_API.Enums;
+using System.Text.Json.Serialization;
 
 namespace Hackaton_API.Models
 {
@@ -9,6 +10,8 @@ namespace Hackaton_API.Models
         public string Email { get; set; }
         public string Cargo { get; set; }
         public string Senha { get; set; }
-        public AvatarDePerfil avatar { get; set; }
+
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public AvatarDePerfil Avatar { get; set; }
     }
 }

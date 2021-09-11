@@ -1,4 +1,5 @@
-﻿using Hackaton_API.Context;
+﻿using Hackaton_API.Enums;
+using Hackaton_API.Context;
 using Hackaton_API.Models;
 using Hackaton_API.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -80,6 +81,19 @@ namespace Hackaton_API.Controllers
 
             return Ok(funcionario);
         }
+
+        [HttpPatch("avatar")]
+        [Authorize]
+        public ActionResult MudarAvatar([FromQuery] AvatarDePerfil avatar)
+        {
+            var funcionario = _context.Funcionarios.Where(x => x.Id == IdFuncionarioAutenticado).FirstOrDefault();
+
+            funcionario.Avatar = avatar;
+
+            _context.SaveChanges();
+
+            return Ok();
+        } 
 
         private void ValidarNome(string nome)
         {
