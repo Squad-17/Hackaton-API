@@ -28,6 +28,12 @@ API tem como objetivo fornecer o serviço para agendamento de colaboradores da F
   DELETE /api/Agendamento/
 ```
 
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `localId` | `integer` | **Required**. Chave estrangeira de local |
+| `Data` | `dateTime` | Armazena a data de agendamento |
+| `funcionarioId` | `string` | **Required**. Chave estrangeira de funcionário  |
+  
 </details>
 
 <details open> 
@@ -51,6 +57,15 @@ API tem como objetivo fornecer o serviço para agendamento de colaboradores da F
 ```http
   PATCH /api/Funcionario/avatar
 ```
+  
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `Id` | `integer` | **Required**. Chave primária do funcionário |
+| `Nome` | `string` | **Required**. Nome do funcionário |
+| `Email` | `string` | **Required**. E-mail do funcionário  |
+| `Senha` | `string` | **Required**. Senha do funcionário |
+| `avatar` | `integer enum: array` | Avatar do funcionário |
+| `Cargo` | `string` | **Required**. Cargo do funcionário |
 
 </details>
 
@@ -64,6 +79,13 @@ API tem como objetivo fornecer o serviço para agendamento de colaboradores da F
   GET /api/Local/
 ```
 
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `Id` | `integer` | **Required**. Chave primária de local |
+| `Cidade` | `string` | Cidade onde fica o escritório/filial |
+| `Endereco` | `string` | Endereço onde se encontra o local  |
+| `Capacidade` | `integer` | **Required**. Capacidade total do local |
+  
 </details>
 
 ## Documentação com Swagger
