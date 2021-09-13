@@ -45,7 +45,7 @@ namespace Hackaton_API.Controllers
             var dias = new HashSet<DiaAgendamento>();
             var finaisDeSemana = new HashSet<DiaAgendamento>();
 
-            for (int i = 1; i <= 7; i++)
+            for (int i = 1; i <= 14; i++)
             {
                 var diaAgendamento = new DiaAgendamento(today.AddDays(i));
                 dias.Add(diaAgendamento);
