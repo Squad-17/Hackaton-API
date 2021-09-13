@@ -38,7 +38,7 @@ namespace Hackaton_API.Controllers
             var local = _context.Locais.Where(x => x.Id == localId).FirstOrDefault();
 
             if (local is null)
-                return BadRequest(new { erro = "Local inv�lido, tente novamente mais tarde" });
+                return BadRequest(new { erro = "Local inválido, tente novamente mais tarde" });
 
             var capacidadeMaxima = Convert.ToInt32(local.Capacidade * 0.4);
 
@@ -74,10 +74,10 @@ namespace Hackaton_API.Controllers
             try
             {
                 if (agendamento.Data <= DateTime.Today)
-                    throw new Exception("Data de agendamento deve ser no m�nimo amanh�");
+                    throw new Exception("Data de agendamento deve ser no mínimo amanhã");
 
                 if (EFinalDeSemana(agendamento.Data))
-                    throw new Exception("N�o � permitido fazer agendamento aos finais de semana");
+                    throw new Exception("Não é permitido fazer agendamento aos finais de semana");
 
                 if (agendamento.LocalId == 0)
                     throw new Exception("Erro inesperado, tente novamente mais tarde");
@@ -86,7 +86,7 @@ namespace Hackaton_API.Controllers
                 var jaAgendouHoje = _context.Agendamentos.Where(x => x.FuncionarioId == agendamento.FuncionarioId && x.Data == agendamento.Data).FirstOrDefault() != null;
 
                 if (jaAgendouHoje)
-                    throw new Exception("N�o � permitido fazer mais de um agendamento por dia");
+                    throw new Exception("Não é permitido fazer mais de um agendamento por dia");
 
                 _context.Agendamentos.Add(agendamento);
                 _context.SaveChanges();
@@ -107,7 +107,7 @@ namespace Hackaton_API.Controllers
                 return BadRequest(new { erro = "Erro inesperado, tente novamente mais tarde." });
 
             if (agendamento.Data == DateTime.MinValue || agendamento.Data <= DateTime.Today)
-                return BadRequest(new { erro = "Data inv�lida, tente novamente" });
+                return BadRequest(new { erro = "Data inválida, tente novamente" });
 
             agendamento.FuncionarioId = IdFuncionarioAutenticado;
 
