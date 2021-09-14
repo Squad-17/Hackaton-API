@@ -5,6 +5,10 @@
     <RootNamespace>Hackaton_API</RootNamespace>
   </PropertyGroup>
 
+  <Target Name="PrePublishTarget" AfterTargets="Publish">
+    <Exec Command="dotnet ef database update" />
+  </Target>
+
   <ItemGroup>
     <Compile Remove="Migrations\20210904192144_Agendamentos.cs" />
     <Compile Remove="Migrations\20210904192144_Agendamentos.Designer.cs" />
@@ -24,9 +28,5 @@
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.2.6" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.1" />
   </ItemGroup>
-
-  <Target Name="PrePublishTarget" AfterTargets="Publish">
-    <Exec Command="dotnet ef database update" />
-  </Target>
 
 </Project>
