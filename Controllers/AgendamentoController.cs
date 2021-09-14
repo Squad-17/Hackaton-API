@@ -42,27 +42,19 @@ namespace Hackaton_API.Controllers
 
             var capacidadeMaxima = Convert.ToInt32(local.Capacidade * 0.4);
 
-            var dias = new HashSet<DiaAgendamento>();
-            var finaisDeSemana = new HashSet<DiaAgendamento>();
+            var dias = new List<DiaAgendamento>();
 
             for (int i = 1; i <= 14; i++)
             {
-                var diaAgendamento = new DiaAgendamento(today.AddDays(i));
+                var dia = today.AddDays(i);
+
+                if (EFinalDeSemana(dia)) continue;
+
+                var diaAgendamento = new DiaAgendamento(dia);
+                diaAgendamento.Disponivel = DiaEstaDisponivel(dia, capacidadeMaxima);
+
                 dias.Add(diaAgendamento);
             };
-
-            foreach (var dia in dias)
-            {
-                if (EFinalDeSemana(dia.Data))
-                {
-                    finaisDeSemana.Add(dia);
-                    continue;
-                }
-
-                dia.Disponivel = DiaEstaDisponivel(dia.Data, capacidadeMaxima);
-            }
-
-            dias.ExceptWith(finaisDeSemana);
 
             return Ok(dias);
         }
