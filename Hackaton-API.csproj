@@ -5,5 +5,25 @@
     <RootNamespace>Hackaton_API</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Migrations\20210904192144_Agendamentos.cs" />
+    <Compile Remove="Migrations\20210904192144_Agendamentos.Designer.cs" />
+    <Compile Remove="Migrations\20210910151322_Cargo-Funcionario.cs" />
+    <Compile Remove="Migrations\20210910151322_Cargo-Funcionario.Designer.cs" />
+    <Compile Remove="Migrations\20210910153615_Cargo-Funcionario.cs" />
+    <Compile Remove="Migrations\20210910153615_Cargo-Funcionario.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.18" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.18" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.18">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.2.6" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.1" />
+  </ItemGroup>
+
 
 </Project>
