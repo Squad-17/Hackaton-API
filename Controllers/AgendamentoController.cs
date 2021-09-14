@@ -25,7 +25,7 @@ namespace Hackaton_API.Controllers
             var agendamentos = _context.Agendamentos
                 .Include(x => x.Local)
                 .OrderBy(x => x.Data)
-                .Where(x => x.FuncionarioId == IdFuncionarioAutenticado && x.Data > DateTime.Today).ToList();
+                .Where(x => x.FuncionarioId == IdFuncionarioAutenticado && x.Data > DateTime.Today).Take(5).ToList();
 
             return Ok(agendamentos);
         }
