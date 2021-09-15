@@ -3,9 +3,6 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Hackaton_API</RootNamespace>
-     <Target Name="PrePublishTarget" AfterTargets="Publish">
-      <Exec Command="dotnet ef database update" />
-    </Target>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,6 +13,10 @@
     <Compile Remove="Migrations\20210910153615_Cargo-Funcionario.cs" />
     <Compile Remove="Migrations\20210910153615_Cargo-Funcionario.Designer.cs" />
   </ItemGroup>
+
+  <Target Name="PrePublishTarget" AfterTargets="Publish">
+      <Exec Command="dotnet ef database update" />
+  </Target>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.18" />
