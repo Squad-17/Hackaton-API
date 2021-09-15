@@ -5,10 +5,6 @@
     <RootNamespace>Hackaton_API</RootNamespace>
   </PropertyGroup>
 
-  <Target Name="PrePublishTarget" AfterTargets="Publish">
-    <Exec Command="dotnet ef database update" />
-  </Target>
-
   <ItemGroup>
     <Compile Remove="Migrations\20210904192144_Agendamentos.cs" />
     <Compile Remove="Migrations\20210904192144_Agendamentos.Designer.cs" />
