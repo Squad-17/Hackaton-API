@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.18" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.18" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.18"> 
@@ -26,6 +27,7 @@
   </ItemGroup>
 
   <Target Name="PrePublishTarget" AfterTargets="Publish">
+      <Exec Command="dotnet tool restore" />
       <Exec Command="dotnet ef database update" />
   </Target>
 
