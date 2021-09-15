@@ -17,9 +17,9 @@ Para começar siga os próximos passos.
 
 ### **Configurando o banco de dados**
 
-```
-Após seguir os passos de instalação do MySQL, você deve abrir o Mysql Workbench para que possamos criar o banco de dados. Dentro do Workbench, clique na conexão que foi criada na instalação, após colocar a senha um editor será aberto, basta digitar:
+#### Após seguir os passos de instalação do MySQL, abra o Mysql Workbench para criar o banco de dados. Dentro do Workbench, digite:
 
+```
 create database (nome_do_banco) e pressionar Ctrl + enter
 ```
 
@@ -31,9 +31,7 @@ git clone https://github.com/Squad-17/Hackaton-API.git
 
 ### **Conectando o banco de dados ao Entity Framework**
 
-```
-Abra o arquivo appsettings.json e na propriedade MyCon insira a string de conexão para o banco de dados
-```
+#### Abra o arquivo `appsettings.json` e na propriedade `MyCon` insira a string de conexão para o banco de dados
 
 ```
 Se nada foi alterado durante a instalação, sua string de conexão deve ser algo parecido com isso:
@@ -133,13 +131,6 @@ https://localhost:(porta-do-projeto)/api/local
 #### Pronto, a API está pronta para uso 😄!!!
 
 ---
-
-<!-- ## 🛠️ Tecnologias utilizadas
-
-- **[TypeScript](https://www.typescriptlang.org/)**
-- **[React](https://pt-br.reactjs.org/)**
-- **[Styled Components](https://styled-components.com/)**
-- **[React Router](https://reactrouter.com/core/guides/philosophy)** -->
 
 # ☕ Referência
 
@@ -296,12 +287,12 @@ Body: Objeto Agendamento
 
 ## 🚀 Contribuições
 
- - DEV
+- DEV
 
-|[<img src="https://avatars.githubusercontent.com/u/47722523?v=4" width=85 > <br> <sub> **`Anderson Fonseca`** </sub>](https://github.com/theandersonfonseca)||[<img src="https://avatars.githubusercontent.com/u/69330412?v=4" width=85 > <br> <sub> **`Matheus Carvalho`** </sub>](https://github.com/Matheus-Galdino)||[<img src="https://avatars.githubusercontent.com/u/19680010?v=4" width=85 > <br> <sub> **`Renan Marques`** </sub>](https://github.com/Re04nan)||
-| -------- | -------- | -------- | -------- | -------- | -------- |
+| [<img src="https://avatars.githubusercontent.com/u/47722523?v=4" width=85 > <br> <sub> **`Anderson Fonseca`** </sub>](https://github.com/theandersonfonseca) |     | [<img src="https://avatars.githubusercontent.com/u/69330412?v=4" width=85 > <br> <sub> **`Matheus Carvalho`** </sub>](https://github.com/Matheus-Galdino) |     | [<img src="https://avatars.githubusercontent.com/u/19680010?v=4" width=85 > <br> <sub> **`Renan Marques`** </sub>](https://github.com/Re04nan) |     |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------ | --- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --- | ---------------------------------------------------------------------------------------------------------------------------------------------- | --- |
 
- - UX
+- UX
 
-|[<img src="https://media-exp1.licdn.com/dms/image/C4E03AQHvnIKmLx0S4A/profile-displayphoto-shrink_800_800/0/1622383457911?e=1637193600&v=beta&t=n7ylzdMfjkykfQg4ma9MPy9CQJH3_khmn8J22vpUt0g" width=85 > <br> <sub>  **`Julia Resende`** </sub>](https://www.linkedin.com/in/juliaresende/)||[<img src="https://miro.medium.com/fit/c/96/96/1*BT8E4KsLSeeDvwDAYk4wXw.png" width=85 > <br> <sub> **`Thiago Falchet`** </sub>](https://www.linkedin.com/in/thiago-falchet/)||
-| -------- | -------- | -------- | -------- |
+| [<img src="https://media-exp1.licdn.com/dms/image/C4E03AQHvnIKmLx0S4A/profile-displayphoto-shrink_800_800/0/1622383457911?e=1637193600&v=beta&t=n7ylzdMfjkykfQg4ma9MPy9CQJH3_khmn8J22vpUt0g" width=85 > <br> <sub> **`Julia Resende`** </sub>](https://www.linkedin.com/in/juliaresende/) |     | [<img src="https://miro.medium.com/fit/c/96/96/1*BT8E4KsLSeeDvwDAYk4wXw.png" width=85 > <br> <sub> **`Thiago Falchet`** </sub>](https://www.linkedin.com/in/thiago-falchet/) |     |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- |
