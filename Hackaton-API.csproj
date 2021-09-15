@@ -3,6 +3,9 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Hackaton_API</RootNamespace>
+     <Target Name="PrePublishTarget" AfterTargets="Publish">
+      <Exec Command="dotnet ef database update" />
+    </Target>
   </PropertyGroup>
 
   <ItemGroup>
