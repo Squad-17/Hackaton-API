@@ -285,6 +285,7 @@ Body: Objeto Agendamento
 ```
 
 ### Resposta
+
 ![api/local](readme-imgs/response-locais.png)
 
 ## 📄 Documentação com Swagger
@@ -295,12 +296,12 @@ Body: Objeto Agendamento
 
 ## 🚀 Contribuições
 
-- DEV
+ - DEV
 
-| [<img src="https://avatars.githubusercontent.com/u/47722523?v=4" width=85 > <br> <sub> **`Anderson Fonseca`** </sub>](https://github.com/theandersonfonseca) |     | [<img src="https://avatars.githubusercontent.com/u/69330412?v=4" width=85 > <br> <sub> **`Matheus Carvalho`** </sub>](https://github.com/Matheus-Galdino) |     | [<img src="https://avatars.githubusercontent.com/u/19680010?v=4" width=85 > <br> <sub> **`Renan Marques`** </sub>](https://github.com/Re04nan) |     |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------ | --- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --- | ---------------------------------------------------------------------------------------------------------------------------------------------- | --- |
+|[<img src="https://avatars.githubusercontent.com/u/47722523?v=4" width=85 > <br> <sub> **`Anderson Fonseca`** </sub>](https://github.com/theandersonfonseca)||[<img src="https://avatars.githubusercontent.com/u/69330412?v=4" width=85 > <br> <sub> **`Matheus Carvalho`** </sub>](https://github.com/Matheus-Galdino)||[<img src="https://avatars.githubusercontent.com/u/19680010?v=4" width=85 > <br> <sub> **`Renan Marques`** </sub>](https://github.com/Re04nan)||
+| -------- | -------- | -------- | -------- | -------- | -------- |
 
-- UX
+ - UX
 
-|[<img src="https://media-exp1.licdn.com/dms/image/C4E03AQHvnIKmLx0S4A/profile-displayphoto-shrink_800_800/0/1622383457911?e=1637193600&v=beta&t=n7ylzdMfjkykfQg4ma9MPy9CQJH3_khmn8J22vpUt0g" width=85 > <br> <sub> **`Julia Resende`** </sub>](https://www.linkedin.com/in/juliaresende/)||[<img src="https://miro.medium.com/fit/c/96/96/1*BT8E4KsLSeeDvwDAYk4wXw.png" width=85 > <br> <sub> **`Thiago Falchet`** </sub>](https://www.linkedin.com/in/thiago-falchet/)||
-| -------- | -------- | -------- | -------- | -->
+|[<img src="https://media-exp1.licdn.com/dms/image/C4E03AQHvnIKmLx0S4A/profile-displayphoto-shrink_800_800/0/1622383457911?e=1637193600&v=beta&t=n7ylzdMfjkykfQg4ma9MPy9CQJH3_khmn8J22vpUt0g" width=85 > <br> <sub>  **`Julia Resende`** </sub>](https://www.linkedin.com/in/juliaresende/)||[<img src="https://miro.medium.com/fit/c/96/96/1*BT8E4KsLSeeDvwDAYk4wXw.png" width=85 > <br> <sub> **`Thiago Falchet`** </sub>](https://www.linkedin.com/in/thiago-falchet/)||
+| -------- | -------- | -------- | -------- |
