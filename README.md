@@ -1,92 +1,291 @@
-
 # 🧡 Hackathon-FCamara API
 
 API tem como objetivo fornecer o serviço para agendamento de colaboradores da FCamara em seus escritórios ou filiais, visando garantir a segurança respeitando a capacidade máxima de cada ambiente de acordo com a legislação imposta por conta da pandemia (COVID-19).
 
+## ⚙️ Executando o projeto
 
-## ☕ API Referência
+### Pré-requisitos
 
-<details open> 
-  <summary>
-    Agendamento
-  </summary>
-  
-#### Retornar todos Agendamento do Funcionario
-```http
-  GET /api/Agendamento/
+- **[GIT](https://git-scm.com/)**
+- **[MySQL](https://dev.mysql.com/downloads/)**
+- **[.Net Core](https://dotnet.microsoft.com/download/dotnet/3.1)**
+- **[Visual Studio](https://visualstudio.microsoft.com/downloads/) ou [VSCode](<[VSCode](https://code.visualstudio.com/)>)**
+
+### Instruções
+
+Para começar siga os próximos passos.
+
+### **Configurando o banco de dados**
+
 ```
-#### Salvar Agendamento
-```http
-  POST /api/Agendamento/
+Após seguir os passos de instalação do MySQL, você deve abrir o Mysql Workbench para que possamos criar o banco de dados. Dentro do Workbench, clique na conexão que foi criada na instalação, após colocar a senha um editor será aberto, basta digitar:
+
+create database (nome_do_banco) e pressionar Ctrl + enter
 ```
-#### Datas para Agendamento disponiveis no local
-```http
+
+### **Clone o repositório e acesse com o editor de código escolhido**
+
+```
+git clone https://github.com/Squad-17/Hackaton-API.git
+```
+
+### **Conectando o banco de dados ao Entity Framework**
+
+```
+Abra o arquivo appsettings.json e na propriedade MyCon insira a string de conexão para o banco de dados
+```
+
+```
+Se nada foi alterado durante a instalação, sua string de conexão deve ser algo parecido com isso:
+
+server=localhost;port=3306;database=nome_do_banco;uid=root;password=senha"
+
+onde (nome_do_banco) é o nome que foi dado ao banco no primeiro passo e senha é a mesma senha criada na instalação do MYSQL
+```
+
+## **Executando o projeto**
+
+<details>
+  <summary>Com VSCode </summary>
+
+### **Instalar extensões necessárias**
+
+- [C#](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
+
+### **Instale as ferramentas do Entity framework**
+
+```
+Na linha de comando (Ctrl + ") digite:
+
+dotnet tool install --global dotnet-ef
+
+e pressione enter. Após isso, digite:
+
+dotnet ef
+
+caso a instalação tenha sido bem sucedida, isso será mostrado:
+
+             ---==/    \\
+       ___  ___   |.    \|\
+      | __|| __|  |  )   \\\
+      | _| | _|   \_/ |  //|\\
+      |___||_|       /   \\\/\\
+
+Entity Framework Core .NET Command-line Tools 2.1.3-rtm-32065
+
+```
+
+### **Criando as tabelas**
+
+```
+Com tudo corretamente configurado, abra novamente a linha de comando (Ctrl + ") e digite:
+
+dotnet ef database update
+
+após a execução desse comando, as tabelas no banco de dados serão criadas
+```
+
+### **Executando o projeto**
+
+```
+Agora, o projeto está pronto para ser iniciado, basta executar o comando:
+
+dotnet run
+
+o projeto será executado e estará disponível na rota https://localhost:5001
+```
+
+</details>
+
+<details>
+  <summary>Com Visual Studio </summary>
+
+### **Criando as tabelas**
+
+```
+Abra o console do gerenciador de pacotes (Ferramentas > Gerenciador de pacotes do Nuget > Console do Gerenciador de Pacotes) e entre o comando
+
+Update-Database
+
+esse comando criará as tabelas no banco de dados
+```
+
+### **Executando o projeto**
+
+```
+Agora, o projeto está pronto para ser iniciado, basta pressionar F5 e o projeto será executado na rota https://localhost:44346
+```
+
+</details>
+
+<br>
+
+### Para ter certeza que o projeto está rodando, acesse a rota:
+
+```
+https://localhost:(porta-do-projeto)/api/local
+```
+
+#### Este json deverá aparecer
+
+![JSON](readme-imgs/api-result.png "Resultado API")
+
+#### Pronto, a API está pronta para uso 😄!!!
+
+---
+
+<!-- ## 🛠️ Tecnologias utilizadas
+
+- **[TypeScript](https://www.typescriptlang.org/)**
+- **[React](https://pt-br.reactjs.org/)**
+- **[Styled Components](https://styled-components.com/)**
+- **[React Router](https://reactrouter.com/core/guides/philosophy)** -->
+
+# ☕ Referência
+
+## **Entidades**
+
+### Funcionario
+
+| Propriedade | Tipo      | Obrigatório  |
+| :---------- | :-------- | :----------- |
+| `Id`        | `inteiro` | `automático` |
+| `Nome`      | `string`  | `sim`        |
+| `Email`     | `string`  | `sim`        |
+| `Senha`     | `string`  | `sim`        |
+| `avatar`    | `enum`    | `padrão: 0`  |
+| `Cargo`     | `string`  | `não`        |
+
+### Local
+
+| Propriedade  | Tipo      |
+| :----------- | :-------- |
+| `Id`         | `inteiro` |
+| `Cidade`     | `string`  |
+| `Endereco`   | `string`  |
+| `Capacidade` | `inteiro` |
+
+### Agendamento
+
+| Propriedade     | Tipo      |
+| :-------------- | :-------- |
+| `localId`       | `inteiro` |
+| `Data`          | `data`    |
+| `funcionarioId` | `inteiro` |
+
+### DiaAgendamento
+
+| Propriedade  | Tipo      |
+| :----------- | :-------- |
+| `Data`       | `data`    |
+| `Disponivel` | `boolean` |
+| `DiaSemana`  | `string`  |
+| `DiaDoMes`   | `inteiro` |
+
+<br>
+
+# Rest API
+
+## Próximos agendamentos
+
+### Requisição
+
+```
+GET /api/Agendamento/
+```
+
+### Resposta
+
+![api/agendamento](readme-imgs/response-agendamentos.png)
+
+## Agendar
+
+### Requisição
+
+```
+POST /api/Agendamento/
+
+Body: Objeto Agendamento
+```
+
+### Resposta
+
+![api/agendamento](readme-imgs/response-agendar.png)
+
+## Datas para Agendamento disponiveis no local
+
+### Requisição
+
+```
   GET /api/Agendamento/disponiveis/:localId
 ```
-#### Deletar Agendamento
-```http
+
+### Resposta
+
+![api/agendamento/disponiveis](readme-imgs/response-dias.png)
+
+## Cancelar agendamento
+
+### Requisição
+
+```
   DELETE /api/Agendamento/
+
+  Body: Objeto agendamento
 ```
 
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `localId` | `integer` | **Required**. Chave estrangeira de local |
-| `Data` | `dateTime` | Armazena a data de agendamento |
-| `funcionarioId` | `string` | **Required**. Chave estrangeira de funcionário  |
-  
-</details>
+<br>
 
-<details open> 
-  <summary>
-    Funcionario
-  </summary>
-  
-#### Cadastrar Funcionario
-```http
+## Cadastrar Funcionario
+
+### Requisição
+
+```
   POST /api/Funcionario/cadastrar
+
+  Body: Objeto Funcionario
 ```
-#### Login Funcionario
-```http
+
+## Login Funcionario
+
+### Requisição
+
+```
   POST /api/Funcionario/login
+
+  Body: Objeto funcionário
 ```
-#### Retornar informações do Funcionario
-```http
+
+## Informações do Funcionario
+
+### Requisição
+
+```
   GET /api/Funcionario/info
 ```
-#### Altera o avatar do Funcionario
-```http
-  PATCH /api/Funcionario/avatar
+
+### Resposta
+
+![api/funcionario/info](readme-imgs/response-func-info.png)
+
+## Altera o avatar do Funcionario
+
+### Requisição
+
 ```
-  
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `Id` | `integer` | **Required**. Chave primária do funcionário |
-| `Nome` | `string` | **Required**. Nome do funcionário |
-| `Email` | `string` | **Required**. E-mail do funcionário  |
-| `Senha` | `string` | **Required**. Senha do funcionário |
-| `avatar` | `integer enum: array` | Avatar do funcionário |
-| `Cargo` | `string` | **Required**. Cargo do funcionário |
+  PATCH /api/Funcionario/avatar?avatar=(avatar-enum-value)
+```
 
-</details>
+## Retornar Locais
 
-<details open> 
-  <summary>
-    Local
-  </summary>
-  
-#### Retornar informações do Local
-```http
+### Requisição
+
+```
   GET /api/Local/
 ```
 
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `Id` | `integer` | **Required**. Chave primária de local |
-| `Cidade` | `string` | Cidade onde fica o escritório/filial |
-| `Endereco` | `string` | Endereço onde se encontra o local  |
-| `Capacidade` | `integer` | **Required**. Capacidade total do local |
-  
-</details>
+### Resposta
+![api/local](readme-imgs/response-locais.png)
 
 ## 📄 Documentação com Swagger
 
@@ -95,13 +294,13 @@ API tem como objetivo fornecer o serviço para agendamento de colaboradores da F
 ```
 
 ## 🚀 Contribuições
- 
- - DEV
- 
-|[<img src="https://avatars.githubusercontent.com/u/47722523?v=4" width=85 > <br> <sub> **`Anderson Fonseca`** </sub>](https://github.com/theandersonfonseca)||[<img src="https://avatars.githubusercontent.com/u/69330412?v=4" width=85 > <br> <sub> **`Matheus Carvalho`** </sub>](https://github.com/Matheus-Galdino)||[<img src="https://avatars.githubusercontent.com/u/19680010?v=4" width=85 > <br> <sub> **`Renan Marques`** </sub>](https://github.com/Re04nan)||
-| -------- | -------- | -------- | -------- | -------- | -------- |
 
- - UX
+- DEV
 
-|[<img src="https://media-exp1.licdn.com/dms/image/C4E03AQHvnIKmLx0S4A/profile-displayphoto-shrink_800_800/0/1622383457911?e=1637193600&v=beta&t=n7ylzdMfjkykfQg4ma9MPy9CQJH3_khmn8J22vpUt0g" width=85 > <br> <sub>  **`Julia Resende`** </sub>](https://www.linkedin.com/in/juliaresende/)||[<img src="https://miro.medium.com/fit/c/96/96/1*BT8E4KsLSeeDvwDAYk4wXw.png" width=85 > <br> <sub> **`Thiago Falchet`** </sub>](https://www.linkedin.com/in/thiago-falchet/)||
-| -------- | -------- | -------- | -------- |
+| [<img src="https://avatars.githubusercontent.com/u/47722523?v=4" width=85 > <br> <sub> **`Anderson Fonseca`** </sub>](https://github.com/theandersonfonseca) |     | [<img src="https://avatars.githubusercontent.com/u/69330412?v=4" width=85 > <br> <sub> **`Matheus Carvalho`** </sub>](https://github.com/Matheus-Galdino) |     | [<img src="https://avatars.githubusercontent.com/u/19680010?v=4" width=85 > <br> <sub> **`Renan Marques`** </sub>](https://github.com/Re04nan) |     |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------ | --- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --- | ---------------------------------------------------------------------------------------------------------------------------------------------- | --- |
+
+- UX
+
+|[<img src="https://media-exp1.licdn.com/dms/image/C4E03AQHvnIKmLx0S4A/profile-displayphoto-shrink_800_800/0/1622383457911?e=1637193600&v=beta&t=n7ylzdMfjkykfQg4ma9MPy9CQJH3_khmn8J22vpUt0g" width=85 > <br> <sub> **`Julia Resende`** </sub>](https://www.linkedin.com/in/juliaresende/)||[<img src="https://miro.medium.com/fit/c/96/96/1*BT8E4KsLSeeDvwDAYk4wXw.png" width=85 > <br> <sub> **`Thiago Falchet`** </sub>](https://www.linkedin.com/in/thiago-falchet/)||
+| -------- | -------- | -------- | -------- | -->
